@@ -1,6 +1,15 @@
 <?php
-  // capture the users ip address otherwise use ireland 89.101.132.209 as default
-  $ip = $_SERVER['SERVER_NAME']!='localhost'?$_SERVER['REMOTE_ADDR']:'89.101.132.209';
+  $ip = $_SERVER["REMOTE_ADDR"];
+  
+  // TODO: for dev
+  // $ip = $_SERVER["SERVER_NAME"]==="localhost" ? "89.101.132.209" : $_SERVER["REMOTE_ADDR"];
+  // $ip = "";//empty ip
+  $ip = "89.100.130.46";//dublin my ip
+  // $ip = "89.101.132.209";//dublin publicis ip
+  // $ip = "31.193.138.225";// uk ip
+  // $ip = "198.211.103.38";// us ip
+  // $ip = "50.31.252.76";// japan ip
+  
   $url = "http://freegeoip.net/json/".$ip;
   $geo = json_decode(file_get_contents($url), true);
 
@@ -35,5 +44,7 @@
   </body>
 
 </html>
+
+
 
 

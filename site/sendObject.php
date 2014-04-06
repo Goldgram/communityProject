@@ -1,6 +1,6 @@
 <?php
   define('PHP_KEY', 'r0r0n04z0r0');
-  echo "string";
+  echo "return string";
   // if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['telephone']) && isset($_POST['telephone'])) {
   //   $answer = strip_tags(mysql_escape_string($_POST['answer']));
   //   $name = strip_tags(mysql_escape_string($_POST['name']));
