@@ -22,8 +22,29 @@
     // $geo["region_name"] = "Region Name";
     // $geo["country_name"] = "Country Name";
   
-    $location = $geo["city"]!=="" ? $geo["city"] : ($geo["region_name"]!=="" ? $geo["region_name"] : ($geo["country_name"]!=="" ? $geo["country_name"] : "limbo"));
+    // $location = $geo["city"]!=="" ? $geo["city"] : ($geo["region_name"]!=="" ? $geo["region_name"] : ($geo["country_name"]!=="" ? $geo["country_name"] : "limbo"));
+    
+    if ($geo["city"]!=="") {
+      $location = $geo["city"];
+      $locationLevel = 1;
+    } else if ($geo["region_name"]!=="") {
+      $location = $geo["region_name"];
+      $locationLevel = 2;
+    } else if ($geo["country_name"]!=="") {
+      $location = $geo["country_name"];
+      $locationLevel = 3;
+    } else {
+      $location = "limbo";
+      $locationLevel = 4;
+    }
 
+
+    
+
+
+
+
+    // set up locations if not exist
   }
  
 ?>
@@ -35,11 +56,18 @@
     <link media="all" type="text/css" rel="stylesheet" href="http://normalize-css.googlecode.com/svn/trunk/normalize.css"/>
     <link media="all" type="text/css" rel="stylesheet" href="resources/css/main.css">
     <script type="text/javascript">
-      var geoObject = {
+      var userObject = {
         "location":"<?php echo $location; ?>",
-        "level1":"<?php echo $geo['country_name']; ?>",
-        "level2":"<?php echo $geo['region_name']; ?>",
-        "level3":"<?php echo $geo['city']; ?>"
+        "locationLevel":"<?php echo $locationLevel; ?>",
+        //should ip be set at end point?
+        "ip":"<?php echo $ip; ?>",
+        "userName":"",
+        "objectType":"",
+        "objectX":"",
+        "objectY":""
+        // "level1":"<?php echo $geo['country_name']; ?>",
+        // "level2":"<?php echo $geo['region_name']; ?>",
+        // "level3":"<?php echo $geo['city']; ?>"
       };
     </script>
   </head>

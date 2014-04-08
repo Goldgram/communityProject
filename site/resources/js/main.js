@@ -1,17 +1,22 @@
 $(document).ready(function() {
-	$("#testButton").click(function () {
-		// event.preventDefault();
-		// console.log(geoObject);
-		JSON.stringify(geoObject);
-		$.post("addObject.php", { data: geoObject }, function(response) {
-		  // console.log(response);
+	$("#testButton").click(function() {
+
+    userObject["userName"] = "Sterling Archer";
+    userObject["objectType"] = "Square";
+    userObject["objectX"] = "150";
+    userObject["objectY"] = "100";
+
+    console.log(userObject);
+
+		JSON.stringify(userObject);
+		$.post("addObject.php", { data: userObject }, function(response) {
 		  if (response["complete"]) {
-        $("#responseText").text("Added.");
+        $("#responseText").text(response["details"]);
       } else {
-        $("#responseText").text("Sorry, your request could not be completed at this time. Please try again later.");
+        $("#responseText").text(response["details"]);
       }
 		}).fail(function() {
-    	$("#responseText").text("Sorry, your request could not be completed at this time. Please try again later.");
+    	$("#responseText").text(response["details"]);
 	  });
 	});
 
