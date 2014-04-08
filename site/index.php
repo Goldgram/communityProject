@@ -1,26 +1,31 @@
 <?php
-  // $ip = $_SERVER["REMOTE_ADDR"];
+  if (isset($_GET["location"])) { //render specific location
+    //clean location and query db
+  } else { //render current location
+     // $ip = $_SERVER["REMOTE_ADDR"];
   
-  // TODO: for dev
-  // $ip = $_SERVER["SERVER_NAME"]==="localhost" ? "89.101.132.209" : $_SERVER["REMOTE_ADDR"];
-  // $ip = "";//empty ip
-  $ip = "89.100.130.46";//dublin my ip
-  // $ip = "89.101.132.209";//dublin publicis ip
-  // $ip = "31.193.138.225";// uk ip
-  // $ip = "198.211.103.38";// us ip
-  // $ip = "50.31.252.76";// japan ip
+    // TODO: for dev
+    // $ip = $_SERVER["SERVER_NAME"]==="localhost" ? "89.101.132.209" : $_SERVER["REMOTE_ADDR"];
+    // $ip = "";//empty ip
+    $ip = "89.100.130.46";//dublin my ip
+    // $ip = "89.101.132.209";//dublin publicis ip
+    // $ip = "31.193.138.225";// uk ip
+    // $ip = "198.211.103.38";// us ip
+    // $ip = "50.31.252.76";// japan ip
+    
   
+    // $url = "http://api.ipinfodb.com/v3/ip-city/?key=98e360c9d6887e4f88d0c26b675b7b584c17fdef0c56038476845857c19094f6&ip=".$ip;
+    $url = "http://freegeoip.net/json/".$ip;
+    $geo = json_decode(file_get_contents($url), true);
+  
+    // $geo["city"] = "City Name";
+    // $geo["region_name"] = "Region Name";
+    // $geo["country_name"] = "Country Name";
+  
+    $location = $geo["city"]!=="" ? $geo["city"] : ($geo["region_name"]!=="" ? $geo["region_name"] : ($geo["country_name"]!=="" ? $geo["country_name"] : "limbo"));
 
-  // $url = "http://api.ipinfodb.com/v3/ip-city/?key=98e360c9d6887e4f88d0c26b675b7b584c17fdef0c56038476845857c19094f6&ip=".$ip;
-  $url = "http://freegeoip.net/json/".$ip;
-  $geo = json_decode(file_get_contents($url), true);
-
-  // $geo["city"] = "City Name";
-  // $geo["region_name"] = "Region Name";
-  // $geo["country_name"] = "Country Name";
-
-  $location = $geo["city"]!=="" ? $geo["city"] : ($geo["region_name"]!=="" ? $geo["region_name"] : ($geo["country_name"]!=="" ? $geo["country_name"] : "limbo"));
-
+  }
+ 
 ?>
 
 <html lang="en">
