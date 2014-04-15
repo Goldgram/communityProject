@@ -15,9 +15,7 @@ $(document).ready(function() {
       } else {
         $("#responseText").text(response["details"]);
       }
-		}).fail(function() {
-    	$("#responseText").text(response["details"]);
-	  });
+		});
 	});
 
 	// test if cookies are enabled
