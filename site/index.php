@@ -45,7 +45,7 @@
     // echo $_GET["location"];
     //clean location and query db
     // if location at level exists show, otherwise go to limbo
-    $getLocation = strip_tags(mysql_escape_string($_GET["location"]));
+    $getLocation = strip_tags(mysqli_real_escape_string($_GET["location"]));
 
 
   } else { //render current location
@@ -64,9 +64,7 @@
     <script type="text/javascript">
       var userObject = {
         "location":"<?php echo $location; ?>",
-        "locationLevel":"<?php echo $locationLevel; ?>",
-        //should ip be set at end point?
-        "ip":"<?php echo $ip; ?>",
+        "country":"<?php echo $geo['country_name']; ?>",
         "userName":"",
         "objectType":"",
         "objectX":"",
