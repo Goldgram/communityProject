@@ -1,4 +1,6 @@
 <?php
+  define('PHP_KEY', 'r0r0n04_z0r0');
+  include 'db.php';
   // $ip = $_SERVER["REMOTE_ADDR"];
 
   // TODO: for dev
@@ -20,7 +22,7 @@
   // $geo["country_name"] = "Country Name";
 
   $location = $geo["city"]!=="" ? $geo["city"] : ($geo["region_name"]!=="" ? $geo["region_name"] : ($geo["country_name"]!=="" ? $geo["country_name"] : "limbo"));
-  
+  $country = $geo["country_name"];
   // if ($geo["city"]!=="") {
   //   $location = $geo["city"];
   //   $locationLevel = 1;
@@ -34,24 +36,59 @@
   //   $location = "limbo";
   //   $locationLevel = 4;
   // }
+ 
+
+
+  if (isset($_GET["location"]) && isset($_GET["country"])) { //render specific location
+
+    //clean location and query db
+    // if location at level exists show, otherwise go to limbo
+    $getLocation = strip_tags(mysql_real_escape_string($_GET["location"]));
+    $getCountry = strip_tags(mysql_real_escape_string($_GET["country"]));
+
+
+    $db = mysqli_connect($db_host, $db_usr, $db_pass, $db_name);
+    if (mysqli_connect_errno()) {
+      // $return["complete"] = false;
+      // $return["details"] = "Could not connect: ".mysqli_connect_error();
+    } else {
+      //add day perameter into this
+      $result = mysqli_query($db, "SELECT * FROM objects_table WHERE location='$getLocation' AND country='$getCountry'");
+      var_dump(mysqli_fetch_array($result));
+    }
+    mysqli_close($db);
+
+    
+  } else { //render current location
+    // set up locations current location
+    // $data = getLocationData($location,$country);
+    // var_dump();
+  }
+
+
+
+
+
+  //get the desired data
+  $db = mysqli_connect($db_host, $db_usr, $db_pass, $db_name);
+  if (mysqli_connect_errno()) {
+    //fail  
+    //$return["details"] = "Could not connect: ".mysqli_connect_error();
+  } else {
+    //add day perameter into this
+    $result = mysqli_query($db, "SELECT * FROM objects_table");
+    var_dump(mysqli_fetch_array($result));
+   
+  }
+  mysqli_close($db);
 
 
     
 
 
 
-  //if (isset($_GET["location"]) && isset($_GET["level"])) { //render specific location
-  if (isset($_GET["location"])) { //render specific location
-    // echo $_GET["location"];
-    //clean location and query db
-    // if location at level exists show, otherwise go to limbo
-    $getLocation = strip_tags(mysqli_real_escape_string($_GET["location"]));
+  
 
-
-  } else { //render current location
-
-    // set up locations current location
-  }
 
 ?>
 
@@ -76,12 +113,20 @@
     </script>
   </head>
   <body>
-
+    <h1>Current Data</h1>
     <p>country: <?php echo $geo["country_name"]; ?></p>
     <p>region: <?php echo $geo["region_name"]; ?></p>
     <p>city: <?php echo $geo["city"]; ?></p>
-    <p>location: <?php echo $location; ?></p>
+    <p>location: <?php echo $location; ?>, <?php echo $location; ?></p>
 
+    <br>
+    <br>
+
+    <h1>Loaded Data</h1>
+    <p>.<?php echo $data["complete"]; ?>.</p>
+    <p>.<?php echo $data["details"]; ?>.</p>
+    <br>
+    <br>
 
     <button id="testButton">test</button>
     <p id="responseText"></p>
