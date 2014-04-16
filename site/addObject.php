@@ -22,12 +22,12 @@ if (isset($_POST["data"])) {
 
 
     //add day perameter into this
-    $result = mysqli_query($db, "SELECT count(*)  AS `ipCount` FROM `objects_table` WHERE ip='$ip'");
+    $result = mysqli_query($db, "SELECT count(*)  AS `ipCount` FROM `objects_table` WHERE ip='$ip' AND location='$location' AND country='$country' AND timestamp>=UNIX_TIMESTAMP(CURDATE())");
     $row = mysqli_fetch_assoc($result);
     $ipCount = $row["ipCount"];
 
 
-    if ($ipCount<5) {
+    if ($ipCount<3) {
       $sql = "INSERT INTO `objects_table`
         (`ip`,`location`,`country`,`user_name`,`object_type`,`object_x`,`object_y`)
         values
