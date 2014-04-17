@@ -39,55 +39,48 @@
  
 
 
-  if (isset($_GET["location"]) && isset($_GET["country"])) { //render specific location
 
-    //clean location and query db
-    // if location at level exists show, otherwise go to limbo
-    $getLocation = strip_tags(mysql_real_escape_string($_GET["location"]));
-    $getCountry = strip_tags(mysql_real_escape_string($_GET["country"]));
-
-
+  function getLocationData($location, $country) {
+    global $db_host, $db_usr, $db_pass, $db_name;
+    //get the desired data
     $db = mysqli_connect($db_host, $db_usr, $db_pass, $db_name);
     if (mysqli_connect_errno()) {
-      // $return["complete"] = false;
-      // $return["details"] = "Could not connect: ".mysqli_connect_error();
+      //fail 
+      // $data
+      //$return["details"] = "Could not connect: ".mysqli_connect_error();
     } else {
       //add day perameter into this
-      $result = mysqli_query($db, "SELECT * FROM objects_table WHERE location='$getLocation' AND country='$getCountry'");
-      var_dump(mysqli_fetch_array($result));
+      $location = strip_tags(mysqli_real_escape_string($db, $location));
+      $country = strip_tags(mysqli_real_escape_string($db, $country));
+      // $sql = "SELECT * FROM objects_table WHERE location='$location' AND country='$country'";
+      $sql = "SELECT * FROM objects_table WHERE location='$location' AND country='$country'";
+      $data = mysqli_fetch_array(mysqli_query($db, $sql));
     }
     mysqli_close($db);
+    return $data;
+  }
 
-    
-  } else { //render current location
+
+
+
+  $hasUrlLocationData = false;
+  if (isset($_GET["location"]) && isset($_GET["country"])) { //render specific location
+
+    // //clean location and query db
+    // // if location at level exists show, otherwise go to limbo
+    $data = getLocationData($_GET["location"],$_GET["country"]);
+    if (1==1) {//if the data is Ok
+      $hasUrlLocationData = true;
+    }
+  } 
+
+  if(!$hasUrlLocationData) { //render current location
     // set up locations current location
-    // $data = getLocationData($location,$country);
-    // var_dump();
+    $data = getLocationData($location,$country);
   }
+  var_dump($data);
 
 
-
-
-
-  //get the desired data
-  $db = mysqli_connect($db_host, $db_usr, $db_pass, $db_name);
-  if (mysqli_connect_errno()) {
-    //fail  
-    //$return["details"] = "Could not connect: ".mysqli_connect_error();
-  } else {
-    //add day perameter into this
-    $result = mysqli_query($db, "SELECT * FROM objects_table");
-    var_dump(mysqli_fetch_array($result));
-   
-  }
-  mysqli_close($db);
-
-
-    
-
-
-
-  
 
 
 ?>
@@ -117,7 +110,7 @@
     <p>country: <?php echo $geo["country_name"]; ?></p>
     <p>region: <?php echo $geo["region_name"]; ?></p>
     <p>city: <?php echo $geo["city"]; ?></p>
-    <p>location: <?php echo $location; ?>, <?php echo $location; ?></p>
+    <p>location: <?php echo $location; ?>, <?php echo $country; ?></p>
 
     <br>
     <br>
