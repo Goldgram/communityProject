@@ -54,7 +54,7 @@
       $country = strip_tags(mysqli_real_escape_string($db, $country));
       // $sql = "SELECT * FROM objects_table WHERE location='$location' AND country='$country'";
       $sql = "SELECT * FROM objects_table WHERE location='$location' AND country='$country'";
-      $data = mysqli_fetch_array(mysqli_query($db, $sql));
+      $data = mysqli_query($db, $sql);
     }
     mysqli_close($db);
     return $data;
@@ -64,22 +64,22 @@
 
 
   $hasUrlLocationData = false;
-  if (isset($_GET["location"]) && isset($_GET["country"])) { //render specific location
+  // if (isset($_GET["location"]) && isset($_GET["country"])) { //render specific location
 
-    // //clean location and query db
-    // // if location at level exists show, otherwise go to limbo
-    $data = getLocationData($_GET["location"],$_GET["country"]);
-    if (1==1) {//if the data is Ok
-      $hasUrlLocationData = true;
-    }
-  } 
+  //   // //clean location and query db
+  //   // // if location at level exists show, otherwise go to limbo
+  //   $objects = getLocationData($_GET["location"],$_GET["country"]);
+
+  //   if ($objects) {//if the data is Ok
+  //     $hasUrlLocationData = true;
+  //   }
+  // } 
 
   if(!$hasUrlLocationData) { //render current location
     // set up locations current location
-    $data = getLocationData($location,$country);
+    $objects = getLocationData($location,$country);
   }
-  var_dump($data);
-
+// var_dump($objects);
 
 
 
@@ -116,8 +116,18 @@
     <br>
 
     <h1>Loaded Data</h1>
-    <p>.<?php echo $data["complete"]; ?>.</p>
-    <p>.<?php echo $data["details"]; ?>.</p>
+    <p>.<?php //echo $data["complete"]; ?>.</p>
+    <p>.<?php //echo $data["details"]; ?>.</p>
+    <?php foreach($objects as $object):?>
+      <!-- <p>*<?php //var_dump($object); ?>*</p> -->
+      <p>id: <?php echo $object["id"]; ?></p>
+      <p>ip: <?php echo $object["ip"]; ?></p>
+      <p>location: <?php echo $object["location"]; ?></p>
+      <p>country: <?php echo $object["country"]; ?></p>
+      <p>userName: <?php echo $object["user_name"]; ?></p>
+
+      <p>***</p>
+    <?php endforeach;?>
     <br>
     <br>
 
