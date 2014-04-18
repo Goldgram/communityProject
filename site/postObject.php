@@ -13,6 +13,7 @@ if (isset($_POST["data"])) {
   } else {
 
     $ip = $_SERVER["REMOTE_ADDR"];
+    // $ip = "50.31.252.76";// japan ip
     $location = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["location"]));
     $country = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["country"]));
     $userName = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["userName"]));

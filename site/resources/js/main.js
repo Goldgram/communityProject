@@ -1,6 +1,23 @@
 $(document).ready(function() {
-	$("#testButton").click(function() {
 
+
+			
+
+	$.post("getObjects.php", { data: locationObject }, function(response) {
+		console.log("done");
+	  if (response["complete"]) {
+      $("#responseText").text(response["details"]);
+	  	console.log("good");
+	  	console.log(response["data"]);
+    } else {
+    	console.log("bad");
+      $("#responseText").text(response["details"]);
+    }
+	});
+
+
+
+	$("#testButton").click(function() {
     userObject["userName"] = "Sterling Archer";
     userObject["objectType"] = "Square";
     userObject["objectX"] = "150";
@@ -9,7 +26,7 @@ $(document).ready(function() {
     console.log(userObject);
 
 		JSON.stringify(userObject);
-		$.post("addObject.php", { data: userObject }, function(response) {
+		$.post("postObject.php", { data: userObject }, function(response) {
 		  if (response["complete"]) {
         $("#responseText").text(response["details"]);
       } else {

@@ -1,12 +1,11 @@
 <?php
-  define('PHP_KEY', 'r0r0n04_z0r0');
-  include 'db.php';
-  // $ip = $_SERVER["REMOTE_ADDR"];
+  
+  $ip = $_SERVER["REMOTE_ADDR"];
 
   // TODO: for dev
   // $ip = $_SERVER["SERVER_NAME"]==="localhost" ? "89.101.132.209" : $_SERVER["REMOTE_ADDR"];
   // $ip = "";//empty ip
-  $ip = "89.100.130.46";//dublin my ip
+  // $ip = "89.100.130.46";//dublin my ip
   // $ip = "89.101.132.209";//dublin publicis ip
   // $ip = "31.193.138.225";// uk ip
   // $ip = "198.211.103.38";// us ip
@@ -39,46 +38,47 @@
  
 
 
+  // define('PHP_KEY', 'r0r0n04_z0r0');
 
-  function getLocationData($location, $country) {
-    global $db_host, $db_usr, $db_pass, $db_name;
-    //get the desired data
-    $db = mysqli_connect($db_host, $db_usr, $db_pass, $db_name);
-    if (mysqli_connect_errno()) {
-      //fail 
-      // $data
-      //$return["details"] = "Could not connect: ".mysqli_connect_error();
-    } else {
-      //add day perameter into this
-      $location = strip_tags(mysqli_real_escape_string($db, $location));
-      $country = strip_tags(mysqli_real_escape_string($db, $country));
-      // $sql = "SELECT * FROM objects_table WHERE location='$location' AND country='$country'";
-      $sql = "SELECT * FROM objects_table WHERE location='$location' AND country='$country'";
-      $data = mysqli_query($db, $sql);
-    }
-    mysqli_close($db);
-    return $data;
-  }
+  // function getLocationData($location, $country) {
+  //   include 'db.php';
+  //   // global $db_host, $db_usr, $db_pass, $db_name;
+  //   //get the desired data
+  //   $db = mysqli_connect($db_host, $db_usr, $db_pass, $db_name);
+  //   if (mysqli_connect_errno()) {
+  //     //fail 
+  //     // $data
+  //     //$return["details"] = "Could not connect: ".mysqli_connect_error();
+  //   } else {
+  //     //add day perameter into this
+  //     $location = strip_tags(mysqli_real_escape_string($db, $location));
+  //     $country = strip_tags(mysqli_real_escape_string($db, $country));
+  //     // $sql = "SELECT * FROM objects_table WHERE location='$location' AND country='$country'";
+  //     $sql = "SELECT * FROM objects_table WHERE location='$location' AND country='$country'";
+  //     $data = mysqli_query($db, $sql);
+  //   }
+  //   mysqli_close($db);
+  //   return $data;
+  // }
 
 
 
 
-  $hasUrlLocationData = false;
+  // $hasUrlLocationData = false;
   // if (isset($_GET["location"]) && isset($_GET["country"])) { //render specific location
 
   //   // //clean location and query db
   //   // // if location at level exists show, otherwise go to limbo
   //   $objects = getLocationData($_GET["location"],$_GET["country"]);
 
-  //   if ($objects) {//if the data is Ok
-  //     $hasUrlLocationData = true;
-  //   }
+  //   //if the data is Ok
+  //   $hasUrlLocationData = $objects ? true : false;
   // } 
 
-  if(!$hasUrlLocationData) { //render current location
-    // set up locations current location
-    $objects = getLocationData($location,$country);
-  }
+  // if(!$hasUrlLocationData) { //render current location
+  //   // set up locations current location
+  //   $objects = getLocationData($location,$country);
+  // }
 // var_dump($objects);
 
 
@@ -103,21 +103,19 @@
         // "level2":"<?php echo $geo['region_name']; ?>",
         // "level3":"<?php echo $geo['city']; ?>"
       };
+      var locationObject = {
+        "location":"<?php echo $location; ?>",
+        "country":"<?php echo $geo['country_name']; ?>"
+      };
     </script>
   </head>
   <body>
     <h1>Current Data</h1>
-    <p>country: <?php echo $geo["country_name"]; ?></p>
-    <p>region: <?php echo $geo["region_name"]; ?></p>
-    <p>city: <?php echo $geo["city"]; ?></p>
     <p>location: <?php echo $location; ?>, <?php echo $country; ?></p>
-
     <br>
     <br>
 
     <h1>Loaded Data</h1>
-    <p>.<?php //echo $data["complete"]; ?>.</p>
-    <p>.<?php //echo $data["details"]; ?>.</p>
     <?php foreach($objects as $object):?>
       <!-- <p>*<?php //var_dump($object); ?>*</p> -->
       <p>id: <?php echo $object["id"]; ?></p>
