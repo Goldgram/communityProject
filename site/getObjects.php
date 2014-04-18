@@ -1,8 +1,7 @@
 <?php 
 define('PHP_KEY', 'r0r0n04_z0r0');
 header('Content-Type: application/json');
-$return["complete"] = true;
-$return["details"] = "nothing";
+
 if (isset($_POST["data"])) {
   include 'db.php';
   $db = mysqli_connect($db_host, $db_usr, $db_pass, $db_name);
@@ -24,25 +23,18 @@ if (isset($_POST["data"])) {
     //   $return["data"][] = $row;
     // }
 
-    if ($result = mysqli_query($db, $sql)) {
+    if ($results = mysqli_query($db, $sql)) {
       $return["data"] = array();
-      /* fetch associative array */
-      while ($row = mysqli_fetch_assoc($result)) {
+      while ($row = mysqli_fetch_assoc($results)) {
         $return["data"][] = $row;
-          // printf ("%s (%s)\n", $row["Name"], $row["CountryCode"]);
       }
       $return["complete"] = ture;
       $return["details"] = "pulled data";
-
-      /* free result set */
-      mysqli_free_result($result);
+      mysqli_free_result($results);
     } else {
       $return["complete"] = false;
       $return["details"] = "query failed";
-    }
-
-
-
+    } 
   }
   mysqli_close($db);
 } else {
