@@ -1,25 +1,62 @@
-function getObjectsData(getLocationObject) {
-	$.post("getObjects.php", { data: getLocationObject }, function(response) {
-	  if (response["complete"]) {
-	    $("#responseText").text(response["details"]);
-			var printout = "";
-			$.each(response["data"], function(i, object){
-			  printout += "<p>id: "+object["id"]+"</p>";
-				printout += "<p>ip: "+object["ip"]+"</p>";
-				printout += "<p>location: "+object["location"]+"</p>";
-				printout += "<p>country: "+object["country"]+"</p>";
-				printout += "<p>user name: "+object["user_name"]+"</p>";
-				printout += "<p>object type: "+object["object_type"]+"</p>";
-				printout += "<p>object x: "+object["object_x"]+"</p>";
-				printout += "<p>object y: "+object["object_y"]+"</p>";
-				printout += "<p>------------------<p>";
-			});
-	  	$("#resultsDiv").html(printout);
-	  } else {
-	    $("#responseText").text(response["details"]);
-	  }
+var objectsArray;
+
+function renderObjects() {
+	var printout = "";
+	$.each(objectsArray["data"], function(i, object){
+	  printout += "<p>id: "+object["id"]+"</p>";
+		printout += "<p>ip: "+object["ip"]+"</p>";
+		printout += "<p>location: "+object["location"]+"</p>";
+		printout += "<p>country: "+object["country"]+"</p>";
+		printout += "<p>user name: "+object["user_name"]+"</p>";
+		printout += "<p>object type: "+object["object_type"]+"</p>";
+		printout += "<p>object x: "+object["object_x"]+"</p>";
+		printout += "<p>object y: "+object["object_y"]+"</p>";
+		printout += "<p>------------------<p>";
 	});
+	$("#resultsDiv").html(printout);
 }
+
+function getObjectsData(getLocationObject) {
+	// var data = {"test":"whopop"};
+	$.post("getObjects.php", { data: getLocationObject }, function(response) {
+		// console.log(data);
+		// console.log(response["complete"]);
+		// console.log(response["details"]);
+		// console.log(response["data"]);
+	    $("#responseText").text(response["details"]);
+	  	
+
+	  	objectsArray = response;
+	  	renderObjects();
+
+	  // if (response["complete"]) {
+			// var printout = "";
+			// $.each(response["data"], function(i, object){
+			//   printout += "<p>id: "+object["id"]+"</p>";
+			// 	printout += "<p>ip: "+object["ip"]+"</p>";
+			// 	printout += "<p>location: "+object["location"]+"</p>";
+			// 	printout += "<p>country: "+object["country"]+"</p>";
+			// 	printout += "<p>user name: "+object["user_name"]+"</p>";
+			// 	printout += "<p>object type: "+object["object_type"]+"</p>";
+			// 	printout += "<p>object x: "+object["object_x"]+"</p>";
+			// 	printout += "<p>object y: "+object["object_y"]+"</p>";
+			// 	printout += "<p>------------------<p>";
+			// });
+	  // 	$("#resultsDiv").html(printout);
+	  // } else {
+
+	    // $("#responseText").text(response["details"]);
+	  // }
+	  // console.log(objectsArray["complete"]);
+	  // data["details"] = response["details"];
+	  // data["complete"] = "responsecomplete";
+	  // data["details"] = "response['details']";
+	});
+// console.log(objectsArray["complete"]);
+	// return data;
+}
+
+
 
 
 var queryString = function() {
@@ -45,15 +82,17 @@ var queryString = function() {
   return query_string;
 }();
 
-var getLocationObject = {};
+
 if (queryString.location && queryString.country) {
-	getLocationObject["location"] = queryString.location;
-	getLocationObject["country"] = queryString.country;
+	getObjectsData({"localLocation":"false", "location":queryString.location, "country":queryString.country});
 } else {
-	getLocationObject["location"] = userObject["location"];
-	getLocationObject["country"] = userObject["country"];
+	getObjectsData({"localLocation":"true", "location":userObject["location"], "country":userObject["country"]});
 }
-getObjectsData(getLocationObject);
+
+// console.log(">");
+// console.log(objectsArray["complete"]);
+// console.log(">");
+
 
 
 
@@ -74,6 +113,13 @@ $(document).ready(function() {
         $("#responseText").text(response["details"]);
       }
 		});
+	});
+
+	$("#testButton2").click(function() {
+		console.log(objectsArray);		
+		// console.log(objectsArray["complete"]);
+		// console.log(objectsArray["details"]);
+		// console.log(objectsArray["data"]);
 	});
 
 	// test if cookies are enabled

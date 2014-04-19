@@ -38,50 +38,6 @@
  
 
 
-  // define('PHP_KEY', 'r0r0n04_z0r0');
-
-  // function getLocationData($location, $country) {
-  //   include 'db.php';
-  //   // global $db_host, $db_usr, $db_pass, $db_name;
-  //   //get the desired data
-  //   $db = mysqli_connect($db_host, $db_usr, $db_pass, $db_name);
-  //   if (mysqli_connect_errno()) {
-  //     //fail 
-  //     // $data
-  //     //$return["details"] = "Could not connect: ".mysqli_connect_error();
-  //   } else {
-  //     //add day perameter into this
-  //     $location = strip_tags(mysqli_real_escape_string($db, $location));
-  //     $country = strip_tags(mysqli_real_escape_string($db, $country));
-  //     // $sql = "SELECT * FROM objects_table WHERE location='$location' AND country='$country'";
-  //     $sql = "SELECT * FROM objects_table WHERE location='$location' AND country='$country'";
-  //     $data = mysqli_query($db, $sql);
-  //   }
-  //   mysqli_close($db);
-  //   return $data;
-  // }
-
-
-
-
-  // $hasUrlLocationData = false;
-  // if (isset($_GET["location"]) && isset($_GET["country"])) { //render specific location
-
-  //   // //clean location and query db
-  //   // // if location at level exists show, otherwise go to limbo
-  //   $objects = getLocationData($_GET["location"],$_GET["country"]);
-
-  //   //if the data is Ok
-  //   $hasUrlLocationData = $objects ? true : false;
-  // } 
-
-  // if(!$hasUrlLocationData) { //render current location
-  //   // set up locations current location
-  //   $objects = getLocationData($location,$country);
-  // }
-// var_dump($objects);
-
-
 
 ?>
 
@@ -99,9 +55,7 @@
         "objectType":"",
         "objectX":"",
         "objectY":""
-        // "level1":"<?php echo $geo['country_name']; ?>",
-        // "level2":"<?php echo $geo['region_name']; ?>",
-        // "level3":"<?php echo $geo['city']; ?>"
+
       };
     </script>
   </head>
@@ -116,6 +70,7 @@
 
     <p id="responseText"></p>
     <button id="testButton">test</button>
+    <button id="testButton2">test 2</button>
 
 
 
