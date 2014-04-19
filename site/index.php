@@ -9,7 +9,7 @@
   // $ip = "89.101.132.209";//dublin publicis ip
   // $ip = "31.193.138.225";// uk ip
   // $ip = "198.211.103.38";// us ip
-  // $ip = "50.31.252.76";// japan ip
+  $ip = "50.31.252.76";// japan ip
   
 
   // $url = "http://api.ipinfodb.com/v3/ip-city/?key=98e360c9d6887e4f88d0c26b675b7b584c17fdef0c56038476845857c19094f6&ip=".$ip;
@@ -54,7 +54,9 @@
         "userName":"",
         "objectType":"",
         "objectX":"",
-        "objectY":""
+        "objectY":"",
+        "objectColor":""
+
 
       };
     </script>
@@ -63,22 +65,33 @@
 
     <h2>Current Data: <?php echo $location; ?>, <?php echo $country; ?></h2>
 
-    <div id="resultsDiv"></div>
+    <!-- <div id="resultsDiv"></div> -->
+
+
+<div id="objectContainer">
+    <!-- <div class="object square">A</div>
+    <div class="object circle" style="left:100px; background-color:red;">B</div> -->
+</div>
+<button id="dynamicAdd">Add</button>
     
-    <br>
+    <!-- <br>
     <br>
 
     <p id="responseText"></p>
     <button id="testButton">test</button>
-    <button id="testButton2">test 2</button>
+    <button id="testButton2">test 2</button> -->
 
 
 
 
     <!--[if lte IE 8]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <![endif]-->    
+
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.6/TweenMax.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.6/plugins/CSSPlugin.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.6/utils/Draggable.min.js"></script>
     <script type="text/javascript" src="resources/js/main.js"></script>
   </body>
 

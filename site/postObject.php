@@ -10,13 +10,15 @@ if (isset($_POST["data"])) {
     $return["details"] = "Could not connect: ".mysqli_connect_error();
   } else {
     $ip = $_SERVER["REMOTE_ADDR"];
-    // $ip = "50.31.252.76";// japan ip
+    $ip = "50.31.252.76";// japan ip
+
     $location = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["location"]));
     $country = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["country"]));
     $userName = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["userName"]));
     $objectType = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["objectType"]));
     $objectX = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["objectX"]));
     $objectY = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["objectY"]));
+    $objectColor = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["objectColor"]));
 
     $sql = "SELECT count(*)  AS `ipCount` FROM `objects_table` WHERE ip='$ip' AND location='$location' AND country='$country' AND timestamp>=UNIX_TIMESTAMP(CURDATE())";
 
@@ -24,9 +26,9 @@ if (isset($_POST["data"])) {
       $row = mysqli_fetch_assoc($results);
       if ($row["ipCount"]<3) {
         $sql = "INSERT INTO `objects_table`
-          (`ip`,`location`,`country`,`user_name`,`object_type`,`object_x`,`object_y`)
+          (`ip`,`location`,`country`,`userName`,`objectType`,`objectX`,`objectY`,`objectColor`)
           values
-          ('$ip','$location','$country','$userName','$objectType','$objectX','$objectY');
+          ('$ip','$location','$country','$userName','$objectType','$objectX','$objectY','$objectColor');
           ";
         if (mysqli_query($db, $sql)) {
           $return["complete"] = true;

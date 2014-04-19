@@ -3,17 +3,20 @@ var objectsArray;
 function renderObjects() {
 	var printout = "";
 	$.each(objectsArray["data"], function(i, object){
-	  printout += "<p>id: "+object["id"]+"</p>";
-		printout += "<p>ip: "+object["ip"]+"</p>";
-		printout += "<p>location: "+object["location"]+"</p>";
-		printout += "<p>country: "+object["country"]+"</p>";
-		printout += "<p>user name: "+object["user_name"]+"</p>";
-		printout += "<p>object type: "+object["object_type"]+"</p>";
-		printout += "<p>object x: "+object["object_x"]+"</p>";
-		printout += "<p>object y: "+object["object_y"]+"</p>";
-		printout += "<p>------------------<p>";
+		printout += "<div class='object "+object["objectType"]+"' style='left:"+object["objectX"]+"px; top:"+object["objectY"]+"px; background-color:"+object["objectColor"]+";'>"+object["userName"]+"</div>";
+		
+	 //  printout += "<p>id: "+object["id"]+"</p>";
+		// printout += "<p>ip: "+object["ip"]+"</p>";
+		// printout += "<p>location: "+object["location"]+"</p>";
+		// printout += "<p>country: "+object["country"]+"</p>";
+		// printout += "<p>user name: "+object["user_name"]+"</p>";
+		// printout += "<p>object type: "+object["object_type"]+"</p>";
+		// printout += "<p>object x: "+object["object_x"]+"</p>";
+		// printout += "<p>object y: "+object["object_y"]+"</p>";
+		// printout += "<p>------------------<p>";
 	});
-	$("#resultsDiv").html(printout);
+	$("#objectContainer").html(printout);
+	dragObjectsSetUp();
 }
 
 function getObjectsData(getLocationObject) {
@@ -23,7 +26,7 @@ function getObjectsData(getLocationObject) {
 		// console.log(response["complete"]);
 		// console.log(response["details"]);
 		// console.log(response["data"]);
-	    $("#responseText").text(response["details"]);
+	    // $("#responseText").text(response["details"]);
 	  	
 
 	  	objectsArray = response;
@@ -83,11 +86,6 @@ var queryString = function() {
 }();
 
 
-if (queryString.location && queryString.country) {
-	getObjectsData({"localLocation":"false", "location":queryString.location, "country":queryString.country});
-} else {
-	getObjectsData({"localLocation":"true", "location":userObject["location"], "country":userObject["country"]});
-}
 
 // console.log(">");
 // console.log(objectsArray["complete"]);
@@ -97,13 +95,93 @@ if (queryString.location && queryString.country) {
 
 
 
+
+
+
+var $container = $("#objectContainer");
+var gridWidth = 50;
+var gridHeight = 50;
+var windowWidth = $(window).width();
+var gridRows = 10;
+var gridColumns = 10;
+
+for (i = 0; i < gridRows * gridColumns; i++) {
+	y = Math.floor(i / gridColumns) * gridHeight;
+	x = (i * gridWidth) % (gridColumns * gridWidth);
+	$("<div/>").css({position:"absolute", border:"1px solid #454545", width:gridWidth-1, height:gridHeight-1, top:y, left:x}).prependTo($container);
+}
+
+TweenLite.set($container, {height: gridRows * gridHeight + 1, width: gridColumns * gridWidth + 1});
+
+function dragObjectsSetUp(){
+	Draggable.create(".object", {
+    type:"x,y",
+    edgeResistance:0.65,
+    bounds:"#objectContainer",
+    throwProps:true,
+    liveSnap:true,
+    snap: {
+      x: function(endValue) {
+        return Math.round(endValue/gridWidth)*gridWidth;
+      },
+      y: function(endValue) {
+        return Math.round(endValue/gridHeight)*gridHeight;
+      }
+    }
+	});
+}
+// dragObjectsSetUp();
+
+
+
+
+
+
+if (queryString.location && queryString.country) {
+	getObjectsData({"localLocation":"false", "location":queryString.location, "country":queryString.country});
+} else {
+	getObjectsData({"localLocation":"true", "location":userObject["location"], "country":userObject["country"]});
+}
+
+
+
+
+
+$(window).load(function() {
+  $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+  // $("html, body").scrollTop($(document).height()); //not working correctly
+});
+
 $(document).ready(function() {
+	$("#dynamicAdd").click(function(){
+
+		
+		userObject["userName"] = "A";
+    userObject["objectType"] = "square";
+    userObject["objectX"] = "0";
+    userObject["objectY"] = "0";
+    userObject["objectColor"] = "red";
+
+		JSON.stringify(userObject);
+		$.post("postObject.php", { data: userObject }, function(response) {
+		  if (response["complete"]) {
+        $("#responseText").text(response["details"]);
+      } else {
+        $("#responseText").text(response["details"]);
+      }
+		});
+
+		$container.append("<div class='object "+userObject["objectType"]+"' style='left:"+userObject["objectX"]+"px; top:"+userObject["objectY"]+"px; background-color:"+userObject["objectColor"]+";'>"+userObject["userName"]+"</div>");
+		dragObjectsSetUp();
+
+	});
 
 	$("#testButton").click(function() {
-    userObject["userName"] = "Sterling Archer";
-    userObject["objectType"] = "Square";
-    userObject["objectX"] = "150";
-    userObject["objectY"] = "100";
+    userObject["userName"] = "A";
+    userObject["objectType"] = "square";
+    userObject["objectX"] = "0";
+    userObject["objectY"] = "0";
+    userObject["objectColor"] = "red";
 
 		JSON.stringify(userObject);
 		$.post("postObject.php", { data: userObject }, function(response) {
@@ -115,12 +193,6 @@ $(document).ready(function() {
 		});
 	});
 
-	$("#testButton2").click(function() {
-		console.log(objectsArray);		
-		// console.log(objectsArray["complete"]);
-		// console.log(objectsArray["details"]);
-		// console.log(objectsArray["data"]);
-	});
 
 	// test if cookies are enabled
 	// $.cookie("test_cookie", "cookie_value", { path: "/" });
