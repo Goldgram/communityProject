@@ -8,26 +8,33 @@ body {
   margin: 0px;
 }
 
-#container {
+#objectContainer {
   height:500px; 
   overflow:visible; 
   padding:0; 
   position:relative;
 }
 
-.box {
+.object {
 	background-color: #91e600;
 	text-align: center;
-	width: 100px;
+	width: 50px;
 	height: 50px;
 	line-height: 50px;
-	color: black;
 	position: absolute;
 	top:0;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
+	left:0;
+	
 }
+.square {
+
+}
+.circle {
+	-webkit-border-radius: 25px;
+	-moz-border-radius: 25px;
+	border-radius: 25px;
+}
+
 #dynamicAdd {
 	position: absolute;
 	left: 50%;
@@ -38,9 +45,9 @@ body {
 </head>
 <body>
 
-<div id="container">
-		<div class="box">A</div>
-		<div class="box" style="left:100px; background-color:red;">B</div>
+<div id="objectContainer">
+		<div class="object square">A</div>
+		<div class="object circle" style="left:100px; background-color:red;">B</div>
 </div>
 <button id="dynamicAdd">Add</button>
 
@@ -59,7 +66,7 @@ body {
 	<script>
 
 
-var $container = $("#container");
+var $container = $("#objectContainer");
 var gridWidth = 50;
 var gridHeight = 50;
 var windowWidth = $(window).width();
@@ -75,10 +82,10 @@ for (i = 0; i < gridRows * gridColumns; i++) {
 TweenLite.set($container, {height: gridRows * gridHeight + 1, width: gridColumns * gridWidth + 1});
 
 function dragBoxSetUp(){
-	Draggable.create(".box", {
+	Draggable.create(".object", {
     type:"x,y",
     edgeResistance:0.65,
-    bounds:"#container",
+    bounds:"#objectContainer",
     throwProps:true,
     liveSnap:true,
     snap: {
@@ -100,7 +107,7 @@ $(window).load(function() {
 
 		$(document).ready(function() {
 			$("#dynamicAdd").click(function(){
-				$container.append("<div class='box' style='left:100px; top:100px; background-color:blue;'>C</div>");
+				$container.append("<div class='object square' style='left:100px; top:100px; background-color:blue;'>C</div>");
 				dragBoxSetUp();
 			});
 		});
