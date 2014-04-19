@@ -10,10 +10,12 @@ if (isset($_POST["data"])) {
     $return["details"] = "Could not connect: ".mysqli_connect_error();
   } else {
     //add day perameter into this
-    // $location = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["location"]));
-    // $country = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["country"]));
-    // $sql = "SELECT * FROM objects_table WHERE location='$location' AND country='$country'";
-    $sql = "SELECT * FROM objects_table";
+    $location = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["location"]));
+    $country = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["country"]));
+    $sql = "SELECT * FROM objects_table WHERE location='$location' AND country='$country'";
+    // $sql = "SELECT * FROM objects_table";
+
+    
     // $return["complete"] = ture;
     // $return["details"] = "pulled data";
     // $return["data"] = mysqli_fetch_array(mysqli_query($db, $sql));

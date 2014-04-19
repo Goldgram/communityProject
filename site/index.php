@@ -103,34 +103,19 @@
         // "level2":"<?php echo $geo['region_name']; ?>",
         // "level3":"<?php echo $geo['city']; ?>"
       };
-      var locationObject = {
-        "location":"<?php echo $location; ?>",
-        "country":"<?php echo $geo['country_name']; ?>"
-      };
     </script>
   </head>
   <body>
-    <h1>Current Data</h1>
-    <p>location: <?php echo $location; ?>, <?php echo $country; ?></p>
+
+    <h2>Current Data: <?php echo $location; ?>, <?php echo $country; ?></h2>
+
+    <div id="resultsDiv"></div>
+    
     <br>
     <br>
 
-    <h1>Loaded Data</h1>
-    <?php foreach($objects as $object):?>
-      <!-- <p>*<?php //var_dump($object); ?>*</p> -->
-      <p>id: <?php echo $object["id"]; ?></p>
-      <p>ip: <?php echo $object["ip"]; ?></p>
-      <p>location: <?php echo $object["location"]; ?></p>
-      <p>country: <?php echo $object["country"]; ?></p>
-      <p>userName: <?php echo $object["user_name"]; ?></p>
-
-      <p>***</p>
-    <?php endforeach;?>
-    <br>
-    <br>
-
-    <button id="testButton">test</button>
     <p id="responseText"></p>
+    <button id="testButton">test</button>
 
 
 
