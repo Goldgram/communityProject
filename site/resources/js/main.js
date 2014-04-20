@@ -1,9 +1,20 @@
+var userObject = {
+  "location":"<?php echo $location; ?>"
+  ,"country":"<?php echo $geo['country_name']; ?>"
+  ,"userName":""
+  ,"objectType":""
+  ,"objectX":""
+  ,"objectY":""
+  ,"objectColor":""
+  ,"objectTexture":""
+  ,"objectZIndex":""
+};
 var objectsArray;
 
 function renderObjects() {
 	var printout = "";
 	$.each(objectsArray["data"], function(i, object){
-		printout += "<div class='object "+object["objectType"]+"' style='left:"+object["objectX"]+"px; top:"+object["objectY"]+"px; background-color:"+object["objectColor"]+";'>"+object["userName"]+"</div>";
+		printout += "<div class='object "+object["objectType"]+"' style='left:"+( object["objectX"]==0 ? 1 : object["objectX"] )+"px; top:"+object["objectY"]+"px; background-color:"+object["objectColor"]+";'>"+object["userName"]+"</div>";
 	});
 	$("#objectContainer").append(printout);
 	dragObjectsSetUp();
@@ -11,7 +22,7 @@ function renderObjects() {
 
 function getObjectsData(getLocationObject) {
 	$.post("getObjects.php", { data: getLocationObject }, function(response) {
-		console.log(response["complete"]);
+		// console.log(response["complete"]);
   	objectsArray = response;
   	renderObjects();
 
@@ -38,9 +49,11 @@ var $container = $("#objectContainer");
 
 var windowWidth = $(window).width();
 var windowHeight = $(window).height();
-alert(Math.floor(windowWidth/gridSize)+" - "+windowHeight);
-var gridColumns = Math.floor(windowWidth/gridSize);
+// console.log(Math.floor(windowWidth/gridSize)+" - "+windowHeight);
+var gridColumns = Math.floor(windowWidth/gridSize)+2;
 var gridRows = 5;
+
+$container.css({"width":"750px"});
 
 for (i = 0; i < gridRows * gridColumns; i++) {
 	y = Math.floor(i / gridColumns) * gridSize;
@@ -108,9 +121,11 @@ $(document).ready(function() {
 
 		userObject["userName"] = "A";
     userObject["objectType"] = "square";
-    userObject["objectX"] = "0";
-    userObject["objectY"] = "0";
+    userObject["objectX"] = "50";
+    userObject["objectY"] = "50";
     userObject["objectColor"] = "red";
+    userObject["objectTexture"] = "001";
+    userObject["objectZIndex"] = "0";
 
 		JSON.stringify(userObject);
 		$.post("postObject.php", { data: userObject }, function(response) {

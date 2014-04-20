@@ -1,12 +1,13 @@
 body {
-  margin: 0px;
+  margin: 0px -50px;
 }
 
 #objectContainer {
-  height:500px; 
-  overflow:visible; 
+  overflow:hidden; 
   padding:0; 
   position:relative;
+  margin: 0 auto;
+
 }
 
 .object {

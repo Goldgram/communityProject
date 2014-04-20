@@ -19,6 +19,8 @@ if (isset($_POST["data"])) {
     $objectX = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["objectX"]));
     $objectY = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["objectY"]));
     $objectColor = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["objectColor"]));
+    $objectTexture = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["objectTexture"]));
+    $objectZIndex = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["objectZIndex"]));
 
     $sql = "SELECT count(*)  AS `ipCount` FROM `objects_table` WHERE ip='$ip' AND location='$location' AND country='$country' AND timestamp>=UNIX_TIMESTAMP(CURDATE())";
 
@@ -26,9 +28,9 @@ if (isset($_POST["data"])) {
       $row = mysqli_fetch_assoc($results);
       if ($row["ipCount"]<3) {
         $sql = "INSERT INTO `objects_table`
-          (`ip`,`location`,`country`,`userName`,`objectType`,`objectX`,`objectY`,`objectColor`)
+          (`ip`,`location`,`country`,`userName`,`objectType`,`objectX`,`objectY`,`objectColor`,`objectTexture`,`objectZIndex`)
           values
-          ('$ip','$location','$country','$userName','$objectType','$objectX','$objectY','$objectColor');
+          ('$ip','$location','$country','$userName','$objectType','$objectX','$objectY','$objectColor','$objectTexture','$objectZIndex');
           ";
         if (mysqli_query($db, $sql)) {
           $return["complete"] = true;

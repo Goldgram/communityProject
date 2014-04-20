@@ -16,28 +16,8 @@
   $url = "http://freegeoip.net/json/".$ip;
   $geo = json_decode(file_get_contents($url), true);
 
-  // $geo["city"] = "City Name";
-  // $geo["region_name"] = "Region Name";
-  // $geo["country_name"] = "Country Name";
-
   $location = $geo["city"]!=="" ? $geo["city"] : ($geo["region_name"]!=="" ? $geo["region_name"] : ($geo["country_name"]!=="" ? $geo["country_name"] : "limbo"));
   $country = $geo["country_name"];
-  // if ($geo["city"]!=="") {
-  //   $location = $geo["city"];
-  //   $locationLevel = 1;
-  // } else if ($geo["region_name"]!=="") {
-  //   $location = $geo["region_name"];
-  //   $locationLevel = 2;
-  // } else if ($geo["country_name"]!=="") {
-  //   $location = $geo["country_name"];
-  //   $locationLevel = 3;
-  // } else {
-  //   $location = "limbo";
-  //   $locationLevel = 4;
-  // }
- 
-
-
 
 ?>
 
@@ -47,43 +27,16 @@
     <title>Community Project</title>
     <link media="all" type="text/css" rel="stylesheet" href="http://normalize-css.googlecode.com/svn/trunk/normalize.css"/>
     <link media="all" type="text/css" rel="stylesheet" href="resources/css/main.css">
-    <script type="text/javascript">
-      var userObject = {
-        "location":"<?php echo $location; ?>",
-        "country":"<?php echo $geo['country_name']; ?>",
-        "userName":"",
-        "objectType":"",
-        "objectX":"",
-        "objectY":"",
-        "objectColor":""
-
-
-      };
-    </script>
   </head>
   <body>
 
     <h2>Current Data: <?php echo $location; ?>, <?php echo $country; ?></h2>
 
-    <!-- <div id="resultsDiv"></div> -->
-
-
-<div id="objectContainer">
-    <!-- <div class="object square">A</div>
-    <div class="object circle" style="left:100px; background-color:red;">B</div> -->
-</div>
-<button id="dynamicAdd">Add</button>
+    <div id="objectContainer"></div>
+     
+    <button id="dynamicAdd">Add</button>
     
-    <!-- <br>
-    <br>
-
-    <p id="responseText"></p>
-    <button id="testButton">test</button>
-    <button id="testButton2">test 2</button> -->
-
-
-
-
+    
     <!--[if lte IE 8]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->    
