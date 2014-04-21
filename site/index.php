@@ -26,7 +26,7 @@
     <meta charset="UTF-8">
     <title>Community Project</title>
     <link media="all" type="text/css" rel="stylesheet" href="http://normalize-css.googlecode.com/svn/trunk/normalize.css"/>
-    <link media="all" type="text/css" rel="stylesheet" href="resources/css/main.css">
+    <link media="all" type="text/css" rel="stylesheet" href="resources/main.min.css">
   </head>
   <body>
 
@@ -36,10 +36,10 @@
       
 
 
-      <button id="leftMove">left</button>
-      <button id="rightMove">right</button>
-      <button id="topMove">top</button>
-      <button id="bottomMove">bottom</button>
+      <button id="leftControl" class="menuControls">left</button>
+      <button id="rightControl" class="menuControls">right</button>
+      <button id="topControl" class="menuControls">top</button>
+      <button id="bottomControl" class="menuControls">bottom</button>
       
       <button id="dynamicAdd">Add</button>
     </div>
@@ -70,7 +70,7 @@
         ,"objectZIndex":""
       };
     </script>
-    <script type="text/javascript" src="resources/js/main.js"></script>
+    <script type="text/javascript" src="resources/main.min.js"></script>
   </body>
 
 </html>

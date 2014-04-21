@@ -1,40 +1,10 @@
 var objectsArray;
 
-function renderObjects() {
-	var printout = "";
-	$.each(objectsArray["data"], function(i, object){
-		printout += "<div class='object "+object["objectType"]+"' style='left:"+( object["objectX"]==0 ? 1 : object["objectX"] )+"px; top:"+object["objectY"]+"px; background-color:"+object["objectColor"]+"; z-index:"+object["objectZIndex"]+";'>"+object["userName"]+"</div>";
-	});
-	$("#objectContainer").append(printout);
-	dragObjectsSetUp();
-}
-
-function getObjectsData(getLocationObject) {
-	$.post("getObjects.php", { data: getLocationObject }, function(response) {
-		// console.log(response["complete"]);
-  	objectsArray = response;
-  	renderObjects();
-
-	  // if (response["complete"]) {
-
-	  // } else {
-	    // $("#responseText").text(response["details"]);
-	  // }
-
-	});
-}
-
-
-
-
-
-
-
 
 
 
 var gridSize = 50;
-var $objectContainerWrap = $("#objectContainerWrap");
+// var $objectContainerWrap = $("#objectContainerWrap");
 var $objectContainer = $("#objectContainer");
 
 
@@ -59,16 +29,12 @@ var gridRows = Math.floor(screenHeight/gridSize)*2;
 // $objectContainer.css({"width":(gridColumns*gridSize)+"px", "margin-left":"-"+(gridColumns*gridSize)/2+"px"});
 
 
-for (i = 0; i < gridRows * gridColumns; i++) {
-	y = Math.floor(i / gridColumns) * gridSize;
-	x = (i * gridSize) % (gridColumns * gridSize);
-	$("<div/>").css({position:"absolute", border:"1px solid #454545", width:gridSize-1, height:gridSize-1, top:y, left:x}).prependTo($objectContainer);
-}
 
-TweenLite.set($objectContainer, {height: gridRows * gridSize + 1, width: gridColumns * gridSize + 1});
+
+
 
 function dragObjectsSetUp(){
-	Draggable.create(".object", {
+  Draggable.create(".object", {
     type:"x,y",
     edgeResistance:0.65,
     bounds:"#objectContainer",
@@ -82,8 +48,47 @@ function dragObjectsSetUp(){
         return Math.round(endValue/gridSize)*gridSize;
       }
     }
-	});
+  });
 }
+
+function renderObjects() {
+  var printout = "";
+  $.each(objectsArray["data"], function(i, object){
+    printout += "<div class='object "+object["objectType"]+"' style='left:"+( object["objectX"]===0 ? 1 : object["objectX"] )+"px; top:"+object["objectY"]+"px; background-color:"+object["objectColor"]+"; z-index:"+object["objectZIndex"]+";'>"+object["userName"]+"</div>";
+  });
+  $("#objectContainer").append(printout);
+  dragObjectsSetUp();
+}
+
+function getObjectsData(getLocationObject) {
+  $.post("getObjects.php", { data: getLocationObject }, function(response) {
+    // console.log(response["complete"]);
+    objectsArray = response;
+    renderObjects();
+    // if (response["complete"]) {
+
+    // } else {
+      // $("#responseText").text(response["details"]);
+    // }
+
+  });
+}
+
+
+
+
+
+
+
+for (var i = 0; i < gridRows * gridColumns; i++) {
+	var y = Math.floor(i / gridColumns) * gridSize;
+	var x = (i * gridSize) % (gridColumns * gridSize);
+	$("<div/>").css({position:"absolute", border:"1px solid #454545", width:gridSize-1, height:gridSize-1, top:y, left:x}).prependTo($objectContainer);
+}
+
+TweenLite.set($objectContainer, {height: gridRows * gridSize + 1, width: gridColumns * gridSize + 1});
+
+
 // dragObjectsSetUp();
 
 
@@ -102,7 +107,7 @@ var queryString = function() {
     } else {
       query_string[pair[0]].push(pair[1]);
     }
-  } 
+  }
   return query_string;
 }();
 
@@ -115,15 +120,7 @@ if (queryString.location && queryString.country) {
 
 
 
-
-var windowWidth
-
-var screenWidth
-
 $(window).load(function() {
-  // $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-  // $("html, body").animate({ scrollLeft: 200 }, 1000);
-
   $("html, body").animate({ scrollTop: $(document).height() }, { duration: 1000, queue: false});
   $("html, body").animate({ scrollLeft: ((gridColumns*gridSize)-windowWidth)/2 }, { duration: 1000, queue: false});
 });

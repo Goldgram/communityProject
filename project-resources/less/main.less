@@ -17,34 +17,31 @@ body {
   
 }
 
-/*#menu {
-	position: absolute;
-	bottom: 0;
-	left: 50%;
-}*/
-#leftMove {
+.menuControls {
 	position: fixed;
 	z-index: 99999;
-	left: 0;
-	top: 50%;
-}
-#rightMove {
-	position: fixed;
-	z-index: 99999;
-	right: 0;
-	top: 50%;
-}
-#topMove {
-	position: fixed;
-	z-index: 99999;
-	left: 50%;
-	top: 0;
-}
-#bottomMove {
-	position: fixed;
-	z-index: 99999;
-	left: 50%;
-	bottom: 0;
+	&#leftControl {
+		left: 0;
+		top: 50%;
+	}
+	&#rightControl {
+		position: fixed;
+		z-index: 99999;
+		right: 0;
+		top: 50%;
+	}
+	&#topControl {
+		position: fixed;
+		z-index: 99999;
+		left: 50%;
+		top: 0;
+	}
+	&#bottomControl {
+		position: fixed;
+		z-index: 99999;
+		left: 50%;
+		bottom: 0;
+	}
 }
 
 .object {
@@ -55,15 +52,14 @@ body {
 	position: absolute;
 	top:0;
 	left:0;
-	
-}
-.square {
+	&.square {
 
-}
-.circle {
-	-webkit-border-radius: 25px;
-	-moz-border-radius: 25px;
-	border-radius: 25px;
+	}
+	&.circle {
+		-webkit-border-radius: 25px;
+		-moz-border-radius: 25px;
+		border-radius: 25px;
+	}
 }
 
 #dynamicAdd {
