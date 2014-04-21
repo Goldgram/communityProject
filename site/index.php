@@ -30,21 +30,46 @@
   </head>
   <body>
 
-    <h2>Current Data: <?php echo $location; ?>, <?php echo $country; ?></h2>
+    <!-- <h2>Current Data: <?php //echo $location; ?>, <?php //echo $country; ?></h2> -->
+  <!-- <div id="objectContainerWrap"> -->
+    <div id="objectContainer">
+      
 
-    <div id="objectContainer"></div>
+
+      <button id="leftMove">left</button>
+      <button id="rightMove">right</button>
+      <button id="topMove">top</button>
+      <button id="bottomMove">bottom</button>
+      
+      <button id="dynamicAdd">Add</button>
+    </div>
+
+
+
+  <!-- </div> -->
      
-    <button id="dynamicAdd">Add</button>
     
     
     <!--[if lte IE 8]>
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->    
-
+    <![endif]-->
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.6/TweenMax.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.6/plugins/CSSPlugin.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.6/utils/Draggable.min.js"></script>
+    <script type="text/javascript">
+      var userObject = {
+        "location":"<?php echo $location; ?>"
+        ,"country":"<?php echo $geo['country_name']; ?>"
+        ,"userName":""
+        ,"objectType":""
+        ,"objectX":""
+        ,"objectY":""
+        ,"objectColor":""
+        ,"objectTexture":""
+        ,"objectZIndex":""
+      };
+    </script>
     <script type="text/javascript" src="resources/js/main.js"></script>
   </body>
 

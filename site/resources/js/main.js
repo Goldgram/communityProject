@@ -1,20 +1,9 @@
-var userObject = {
-  "location":"<?php echo $location; ?>"
-  ,"country":"<?php echo $geo['country_name']; ?>"
-  ,"userName":""
-  ,"objectType":""
-  ,"objectX":""
-  ,"objectY":""
-  ,"objectColor":""
-  ,"objectTexture":""
-  ,"objectZIndex":""
-};
 var objectsArray;
 
 function renderObjects() {
 	var printout = "";
 	$.each(objectsArray["data"], function(i, object){
-		printout += "<div class='object "+object["objectType"]+"' style='left:"+( object["objectX"]==0 ? 1 : object["objectX"] )+"px; top:"+object["objectY"]+"px; background-color:"+object["objectColor"]+";'>"+object["userName"]+"</div>";
+		printout += "<div class='object "+object["objectType"]+"' style='left:"+( object["objectX"]==0 ? 1 : object["objectX"] )+"px; top:"+object["objectY"]+"px; background-color:"+object["objectColor"]+"; z-index:"+object["objectZIndex"]+";'>"+object["userName"]+"</div>";
 	});
 	$("#objectContainer").append(printout);
 	dragObjectsSetUp();
@@ -45,23 +34,38 @@ function getObjectsData(getLocationObject) {
 
 
 var gridSize = 50;
-var $container = $("#objectContainer");
+var $objectContainerWrap = $("#objectContainerWrap");
+var $objectContainer = $("#objectContainer");
+
 
 var windowWidth = $(window).width();
 var windowHeight = $(window).height();
-// console.log(Math.floor(windowWidth/gridSize)+" - "+windowHeight);
-var gridColumns = Math.floor(windowWidth/gridSize)+2;
-var gridRows = 5;
 
-$container.css({"width":"750px"});
+var screenWidth = screen.width;
+var screenHeight = screen.height;
+
+// alert(screenWidth+" - "+screenHeight);
+// console.log(Math.floor(windowWidth/gridSize)+" - "+windowHeight);
+
+
+// var gridColumns = Math.floor(windowWidth/gridSize);
+// var gridRows = 20;
+var gridColumns = Math.floor(screenWidth/gridSize)*2;
+var gridRows = Math.floor(screenHeight/gridSize)*2;
+
+// $objectContainerWrap.css({"height":(gridRows*gridSize)+"px"});
+// $objectContainer.css({"width":"750px"});
+// $objectContainer.css({"width":(gridColumns*gridSize)+"px"});
+// $objectContainer.css({"width":(gridColumns*gridSize)+"px", "margin-left":"-"+(gridColumns*gridSize)/2+"px"});
+
 
 for (i = 0; i < gridRows * gridColumns; i++) {
 	y = Math.floor(i / gridColumns) * gridSize;
 	x = (i * gridSize) % (gridColumns * gridSize);
-	$("<div/>").css({position:"absolute", border:"1px solid #454545", width:gridSize-1, height:gridSize-1, top:y, left:x}).prependTo($container);
+	$("<div/>").css({position:"absolute", border:"1px solid #454545", width:gridSize-1, height:gridSize-1, top:y, left:x}).prependTo($objectContainer);
 }
 
-TweenLite.set($container, {height: gridRows * gridSize + 1, width: gridColumns * gridSize + 1});
+TweenLite.set($objectContainer, {height: gridRows * gridSize + 1, width: gridColumns * gridSize + 1});
 
 function dragObjectsSetUp(){
 	Draggable.create(".object", {
@@ -101,6 +105,7 @@ var queryString = function() {
   } 
   return query_string;
 }();
+
 if (queryString.location && queryString.country) {
 	getObjectsData({"localLocation":"false", "location":queryString.location, "country":queryString.country});
 } else {
@@ -111,10 +116,20 @@ if (queryString.location && queryString.country) {
 
 
 
+var windowWidth
+
+var screenWidth
+
 $(window).load(function() {
-  $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-  // $("html, body").scrollTop($(document).height()); //not working correctly
+  // $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+  // $("html, body").animate({ scrollLeft: 200 }, 1000);
+
+  $("html, body").animate({ scrollTop: $(document).height() }, { duration: 1000, queue: false});
+  $("html, body").animate({ scrollLeft: ((gridColumns*gridSize)-windowWidth)/2 }, { duration: 1000, queue: false});
 });
+
+
+
 
 $(document).ready(function() {
 	$("#dynamicAdd").click(function(){
@@ -136,7 +151,7 @@ $(document).ready(function() {
       }
 		});
 
-		$container.append("<div class='object "+userObject["objectType"]+"' style='left:"+userObject["objectX"]+"px; top:"+userObject["objectY"]+"px; background-color:"+userObject["objectColor"]+";'>"+userObject["userName"]+"</div>");
+		$objectContainer.append("<div class='object "+userObject["objectType"]+"' style='left:"+userObject["objectX"]+"px; top:"+userObject["objectY"]+"px; background-color:"+userObject["objectColor"]+";'>"+userObject["userName"]+"</div>");
 		dragObjectsSetUp();
 
 	});
