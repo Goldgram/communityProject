@@ -54,7 +54,7 @@ function dragObjectsSetUp(){
 function renderObjects() {
   var printout = "";
   $.each(objectsArray["data"], function(i, object){
-    printout += "<div class='object "+object["objectType"]+"' style='left:"+( object["objectX"]===0 ? 1 : object["objectX"] )+"px; top:"+object["objectY"]+"px; background-color:"+object["objectColor"]+"; z-index:"+object["objectZIndex"]+";'>"+object["userName"]+"</div>";
+    printout += "<div class='object "+object["objectType"]+"' style='left:"+( object["objectX"]===0 ? 1 : (object["objectX"]*gridSize) )+"px; top:"+(object["objectY"]*gridSize)+"px; background-color:"+object["objectColor"]+"; z-index:"+object["objectZIndex"]+";'>"+object["userName"]+"</div>";
   });
   $("#objectContainer").append(printout);
   dragObjectsSetUp();
@@ -133,8 +133,8 @@ $(document).ready(function() {
 
 		userObject["userName"] = "A";
     userObject["objectType"] = "square";
-    userObject["objectX"] = "50";
-    userObject["objectY"] = "50";
+    userObject["objectX"] = "1";
+    userObject["objectY"] = "1";
     userObject["objectColor"] = "red";
     userObject["objectTexture"] = "001";
     userObject["objectZIndex"] = "0";

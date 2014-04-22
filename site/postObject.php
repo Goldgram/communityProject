@@ -10,6 +10,11 @@ if (isset($_POST["data"])) {
     $return["details"] = "Could not connect: ".mysqli_connect_error();
   } else {
     $ip = $_SERVER["REMOTE_ADDR"];
+    
+    // $ip = "89.100.130.46";//dublin my ip
+    // $ip = "89.101.132.209";//dublin publicis ip
+    // $ip = "31.193.138.225";// uk ip
+    // $ip = "198.211.103.38";// us ip
     $ip = "50.31.252.76";// japan ip
 
     $location = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["location"]));
