@@ -1,0 +1,36 @@
+<style type="text/css">
+	#content {
+		background-color: pink;
+		margin: 20px;
+		padding: 20px;
+	}
+	.triangleWrap {
+		overflow: hidden;
+		width: 40px;
+		height:40px;
+	}
+	.triangle {
+		overflow: hidden;
+		width: 40px;
+		height:80px;
+		-webkit-transform: skewX(45deg);
+       -moz-transform: skewX(45deg);
+         -o-transform: skewX(45deg);
+        -ms-transform: skewX(45deg);
+            transform: skewX(45deg);
+	}
+	.triangle img{
+		-webkit-transform: skewX(-45deg);
+       -moz-transform: skewX(-45deg);
+         -o-transform: skewX(-45deg);
+        -ms-transform: skewX(-45deg);
+            transform: skewX(-45deg);
+	}
+</style>
+<div id="content">
+	<div class="triangleWrap">
+		<div class="triangle">
+			<img src="http://placekitten.com/80/80">
+		</div>
+	</div>
+</div>
