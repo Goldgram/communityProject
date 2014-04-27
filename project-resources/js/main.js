@@ -20,8 +20,8 @@ var screenHeight = screen.height;
 
 // var gridColumns = Math.floor(windowWidth/gridSize);
 // var gridRows = 20;
-var gridColumns = Math.floor(screenWidth/gridSize)*2;
-var gridRows = Math.floor(screenHeight/gridSize)*2;
+var gridColumns = Math.floor(screenWidth/gridSize)+3;
+var gridRows = Math.floor(screenHeight/gridSize)+3;
 
 // $objectContainerWrap.css({"height":(gridRows*gridSize)+"px"});
 // $objectContainer.css({"width":"750px"});

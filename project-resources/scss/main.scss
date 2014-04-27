@@ -80,6 +80,20 @@ body {
 	  }
 	}
 
+	&.pacman {
+	  width: 0px;
+	  height: 0px;
+	  background-color: transparent !important;
+	  border-right: 60px solid transparent;
+	  border-top: 60px solid yellow;
+	  border-left: 60px solid yellow;
+	  border-bottom: 60px solid yellow;
+	  border-top-left-radius: 60px;
+	  border-top-right-radius: 60px;
+	  border-bottom-left-radius: 60px;
+	  border-bottom-right-radius: 60px;
+	}
+
 }
 
 // .square (@width: 1, @height: 1) {
