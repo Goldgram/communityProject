@@ -3,7 +3,7 @@ var objectsArray;
 
 
 
-var gridSize = 50;
+var gridSize = 40;
 // var $objectContainerWrap = $("#objectContainerWrap");
 var $objectContainer = $("#objectContainer");
 
@@ -30,7 +30,9 @@ var gridRows = Math.floor(screenHeight/gridSize)*2;
 
 
 
-
+function addObject(object) {
+  return "<div class='object "+object["objectType"]+"-"+object["objectWidth"]+"x"+object["objectHeight"]+"' style='left:"+( object["objectX"]===0 ? 1 : (object["objectX"]*gridSize) )+"px; top:"+(object["objectY"]*gridSize)+"px; background-color:"+object["objectColor"]+"; z-index:"+object["objectZIndex"]+";'>"+object["id"]+"</div>";
+}
 
 
 function dragObjectsSetUp(){
@@ -54,7 +56,8 @@ function dragObjectsSetUp(){
 function renderObjects() {
   var printout = "";
   $.each(objectsArray["data"], function(i, object){
-    printout += "<div class='object "+object["objectType"]+"' style='left:"+( object["objectX"]===0 ? 1 : (object["objectX"]*gridSize) )+"px; top:"+(object["objectY"]*gridSize)+"px; background-color:"+object["objectColor"]+"; z-index:"+object["objectZIndex"]+";'>"+object["userName"]+"</div>";
+    printout += addObject(object);
+    //printout += "<div class='object "+object["objectType"]+"' style='left:"+( object["objectX"]===0 ? 1 : (object["objectX"]*gridSize) )+"px; top:"+(object["objectY"]*gridSize)+"px; background-color:"+object["objectColor"]+"; z-index:"+object["objectZIndex"]+";'>"+object["userName"]+"</div>";
   });
   $("#objectContainer").append(printout);
   dragObjectsSetUp();
@@ -63,13 +66,13 @@ function renderObjects() {
 function getObjectsData(getLocationObject) {
   $.post("getObjects.php", { data: getLocationObject }, function(response) {
     // console.log(response["complete"]);
-    objectsArray = response;
-    renderObjects();
-    // if (response["complete"]) {
-
-    // } else {
+    
+    if (response["complete"]>0) {
+      objectsArray = response;
+      renderObjects();
+    } else {
       // $("#responseText").text(response["details"]);
-    // }
+    }
 
   });
 }
@@ -131,13 +134,23 @@ $(window).load(function() {
 $(document).ready(function() {
 	$("#dynamicAdd").click(function(){
 
-		userObject["userName"] = "A";
-    userObject["objectType"] = "square";
-    userObject["objectX"] = "1";
-    userObject["objectY"] = "1";
-    userObject["objectColor"] = "red";
-    userObject["objectTexture"] = "001";
-    userObject["objectZIndex"] = "0";
+    //random values for testing
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    var colors = ["aqua","black","blue","fuchsia","gray","green","lime","maroon","navy","olive","orange","purple","red","silver","teal","yellow"];
+		var shapes = ["square","circle"];
+    userObject["userName"] = "A";
+    userObject["objectType"] = shapes[getRandomInt(0,1)];
+    userObject["objectWidth"] = getRandomInt(1,4);
+    userObject["objectHeight"] = getRandomInt(1,4);
+    userObject["objectX"] = getRandomInt(1,8);
+    userObject["objectY"] = getRandomInt(1,8);
+    userObject["objectColor"] = colors[getRandomInt(0,15)];
+    userObject["objectTexture"] = 0;
+    userObject["objectZIndex"] = 0;
+
+
 
 		JSON.stringify(userObject);
 		$.post("postObject.php", { data: userObject }, function(response) {
@@ -147,8 +160,8 @@ $(document).ready(function() {
         $("#responseText").text(response["details"]);
       }
 		});
-
-		$objectContainer.append("<div class='object "+userObject["objectType"]+"' style='left:"+userObject["objectX"]+"px; top:"+userObject["objectY"]+"px; background-color:"+userObject["objectColor"]+";'>"+userObject["userName"]+"</div>");
+		// $objectContainer.append("<div class='object "+userObject["objectType"]+"' style='left:"+userObject["objectX"]+"px; top:"+userObject["objectY"]+"px; background-color:"+userObject["objectColor"]+";'>"+userObject["userName"]+"</div>");
+    $objectContainer.append(addObject(userObject));
 		dragObjectsSetUp();
 
 	});

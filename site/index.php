@@ -61,13 +61,15 @@
       var userObject = {
         "location":"<?php echo $location; ?>"
         ,"country":"<?php echo $geo['country_name']; ?>"
-        ,"userName":""
-        ,"objectType":""
-        ,"objectX":""
-        ,"objectY":""
-        ,"objectColor":""
+        ,"userName":"Anonymous"
+        ,"objectType":"square"
+        ,"objectWidth":1
+        ,"objectHeight":1
+        ,"objectX":1
+        ,"objectY":1
+        ,"objectColor":"#333"
         ,"objectTexture":""
-        ,"objectZIndex":""
+        ,"objectZIndex":1
       };
     </script>
     <script type="text/javascript" src="resources/main.min.js"></script>

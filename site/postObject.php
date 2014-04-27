@@ -21,6 +21,8 @@ if (isset($_POST["data"])) {
     $country = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["country"]));
     $userName = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["userName"]));
     $objectType = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["objectType"]));
+    $objectWidth = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["objectWidth"]));
+    $objectHeight = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["objectHeight"]));
     $objectX = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["objectX"]));
     $objectY = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["objectY"]));
     $objectColor = strip_tags(mysqli_real_escape_string($db, $_POST["data"]["objectColor"]));
@@ -33,9 +35,9 @@ if (isset($_POST["data"])) {
       $row = mysqli_fetch_assoc($results);
       if ($row["ipCount"]<3) {
         $sql = "INSERT INTO `objects_table`
-          (`ip`,`location`,`country`,`userName`,`objectType`,`objectX`,`objectY`,`objectColor`,`objectTexture`,`objectZIndex`)
+          (`ip`,`location`,`country`,`userName`,`objectType`,`objectWidth`,`objectHeight`,`objectX`,`objectY`,`objectColor`,`objectTexture`,`objectZIndex`)
           values
-          ('$ip','$location','$country','$userName','$objectType','$objectX','$objectY','$objectColor','$objectTexture','$objectZIndex');
+          ('$ip','$location','$country','$userName','$objectType','$objectWidth','$objectHeight','$objectX','$objectY','$objectColor','$objectTexture','$objectZIndex');
           ";
         if (mysqli_query($db, $sql)) {
           $return["complete"] = true;
