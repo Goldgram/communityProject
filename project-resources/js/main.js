@@ -159,7 +159,7 @@ $(document).ready(function() {
     var shapes = ["square","circle","triangle-L","triangle-R"];
 		var textures = ["000","001","002"];
     userObject["userName"] = "A";
-    userObject["objectType"] = shapes[getRandomInt(2,3)];
+    userObject["objectType"] = shapes[getRandomInt(0,3)];
     userObject["objectWidth"] = getRandomInt(1,4);
     userObject["objectHeight"] = getRandomInt(1,4);
     userObject["objectX"] = getRandomInt(1,8);
