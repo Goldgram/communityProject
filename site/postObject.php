@@ -33,7 +33,7 @@ if (isset($_POST["data"])) {
 
     if ($results = mysqli_query($db, $sql)) {
       $row = mysqli_fetch_assoc($results);
-      if ($row["ipCount"]<3) {
+      if ($row["ipCount"]<9) {
         $sql = "INSERT INTO `objects_table`
           (`ip`,`location`,`country`,`userName`,`objectType`,`objectWidth`,`objectHeight`,`objectX`,`objectY`,`objectColor`,`objectTexture`,`objectZIndex`)
           values

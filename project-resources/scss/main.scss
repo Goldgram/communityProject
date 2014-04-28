@@ -1,4 +1,20 @@
+$gridSize:40px;
 $objectMaxSize:4;
+
+
+
+
+// $TriangleRandL: "item-1.1" "item-1.2" "item-1.3" "item-1.4", 
+//        "item-2.1" "item-2.2" "item-2.3" "item-2.4",
+//        "item-3.1" "item-3.2" "item-3.3" "item-3.4",
+//        "item-4.1" "item-4.2" "item-4.3" "item-4.4";
+
+$TriangleRandL: 45deg 26.56deg 18.43deg 14.04deg, 
+								63.43deg 45deg 33.69deg 26.56deg,
+								71.56deg 56.30deg 45deg 36.87deg,
+								75.96deg 63.43deg 53.13deg 45deg;
+
+
 
 
 body {
@@ -49,61 +65,110 @@ body {
 
 .object {
 	position: absolute;
-	// &.square {
-		// width: 40px;
-		// height: 40px;
-	// }
+
 	@for $width from 1 through $objectMaxSize {
 		@for $height from 1 through $objectMaxSize {
+			
+			$objectWidth: $gridSize * $width;
+			$objectHeight: $gridSize * $height;
 
 		  &.square-#{$width}x#{$height} {
-		    width: 40px * $width;
-		    height: 40px * $height;
+		    width: $objectWidth;
+		    height: $objectHeight;
 		  }
 
+		  $circleRadius: #{($gridSize/2) * $width} / #{($gridSize/2) * $height};
+
 			&.circle-#{$width}x#{$height} {
-				width: 40px * $width;
-		    height: 40px * $height;
-				-webkit-border-radius: #{20px * $width} / #{20px * $height};
-				-moz-border-radius: #{20px * $width} / #{20px * $height};
-				border-radius: #{20px * $width} / #{20px * $height};
+				overflow: hidden;
+				width: $objectWidth;
+		    height: $objectHeight;
+		    -webkit-border-radius: $circleRadius;
+				-moz-border-radius: $circleRadius;
+				border-radius: $circleRadius;
 			}
 		  
-		 //  &.oval-#{$width}x#{$height} {
-			// 	width: 200px; 
-			// 	height: 100px; 
-			// 	background: purple; 
-			// 	-moz-border-radius: 100px / 50px; 
-			// 	-webkit-border-radius: 100px / 50px; 
-			// 	border-radius: 100px / 50px;
-			// }
+		  $triangleDeg : nth(nth($TriangleRandL, $width), $height);
+
+		  &.triangle-L-#{$width}x#{$height} {
+				overflow: hidden;
+				background-color: transparent !important;
+				width: $objectWidth;
+		    height: $objectHeight;
+				>div {
+					overflow: hidden;
+					width: 100%;
+					height: 200%;
+					-webkit-transform: skewX($triangleDeg);
+					-moz-transform: skewX($triangleDeg);
+					-o-transform: skewX($triangleDeg);
+					-ms-transform: skewX($triangleDeg);
+					transform: skewX($triangleDeg);
+					>div {
+						width: 100%;
+						height: 100%;
+						-webkit-transform: skewX(-$triangleDeg);
+						-moz-transform: skewX(-$triangleDeg);
+						-o-transform: skewX(-$triangleDeg);
+						-ms-transform: skewX(-$triangleDeg);
+						transform: skewX(-$triangleDeg);
+					}
+				}
+			}
+
+			&.triangle-R-#{$width}x#{$height} {
+				overflow: hidden;
+				background-color: transparent !important;
+				width: $objectWidth;
+		    height: $objectHeight;
+				>div {
+					overflow: hidden;
+					width: 100%;
+					height: 200%;
+					-webkit-transform: skewX(-$triangleDeg);
+					-moz-transform: skewX(-$triangleDeg);
+					-o-transform: skewX(-$triangleDeg);
+					-ms-transform: skewX(-$triangleDeg);
+					transform: skewX(-$triangleDeg);
+					>div {
+						width: 100%;
+						height: 100%;
+						-webkit-transform: skewX($triangleDeg);
+						-moz-transform: skewX($triangleDeg);
+						-o-transform: skewX($triangleDeg);
+						-ms-transform: skewX($triangleDeg);
+						transform: skewX($triangleDeg);
+					}
+				}
+			}
+
+
+
 	  }
 	}
 
 	&.pacman {
 	  width: 0px;
 	  height: 0px;
-	  background-color: transparent !important;
-	  border-right: 60px solid transparent;
-	  border-top: 60px solid yellow;
-	  border-left: 60px solid yellow;
-	  border-bottom: 60px solid yellow;
-	  border-top-left-radius: 60px;
-	  border-top-right-radius: 60px;
-	  border-bottom-left-radius: 60px;
-	  border-bottom-right-radius: 60px;
+	  // background-color: transparent !important;
+	  border-right: ($gridSize * 1.5) solid transparent;
+	  border-top: ($gridSize * 1.5) solid yellow;
+	  border-left: ($gridSize * 1.5) solid yellow;
+	  border-bottom: ($gridSize * 1.5) solid yellow;
+	  border-top-left-radius: ($gridSize * 1.5);
+	  border-top-right-radius: ($gridSize * 1.5);
+	  border-bottom-left-radius: ($gridSize * 1.5);
+	  border-bottom-right-radius: ($gridSize * 1.5);
 	}
 
 }
 
-// .square (@width: 1, @height: 1) {
-// 	width: @width*40px;
-// 	height: @height*40px;
-// }
-// .square2x2 { .square(2,2); }
-
-
-
+.texture {
+	width:100%;
+	height:100%;
+	&.texture-001 { background-image:url(images/texture-001.png); }
+	&.texture-002 { background-image:url(images/texture-002.png); }
+}
 
 
 

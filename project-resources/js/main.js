@@ -31,7 +31,23 @@ var gridRows = Math.floor(screenHeight/gridSize)+3;
 
 
 function addObject(object) {
-  return "<div class='object "+object["objectType"]+"-"+object["objectWidth"]+"x"+object["objectHeight"]+"' style='left:"+( object["objectX"]===0 ? 1 : (object["objectX"]*gridSize) )+"px; top:"+(object["objectY"]*gridSize)+"px; background-color:"+object["objectColor"]+"; z-index:"+object["objectZIndex"]+";'>"+object["id"]+"</div>";
+  var string = "";
+
+  var typeClass = object["objectType"]+"-"+object["objectWidth"]+"x"+object["objectHeight"];
+  var styleLeft = object["objectX"]===0 ? 1 : (object["objectX"]*gridSize);
+  var styleTop = object["objectY"]*gridSize;
+  var styleTexture = "texture-"+(object["objectTexture"]==="000" ? "" : object["objectTexture"]);
+
+  string += "<div class='object "+typeClass+"' style='left:"+styleLeft+"px; top:"+styleTop+"px; z-index:"+object["objectZIndex"]+";'>";
+    string += "<div>";
+      string += "<div style='background-color:"+object["objectColor"]+";'>";
+        string += "<div class='texture "+styleTexture+"'>";
+          // string += object["id"];
+        string += "</div>";
+      string += "</div>";
+    string += "</div>";
+  string += "</div>";
+  return string;
 }
 
 
@@ -139,19 +155,18 @@ $(document).ready(function() {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
     var colors = ["aqua","black","blue","fuchsia","gray","green","lime","maroon","navy","olive","orange","purple","red","silver","teal","yellow"];
-		var shapes = ["square","circle"];
+    var shapes = ["square","circle","triangle-L","triangle-R"];
+		var textures = ["000","001","002"];
     userObject["userName"] = "A";
-    userObject["objectType"] = shapes[getRandomInt(0,1)];
+    userObject["objectType"] = shapes[getRandomInt(2,3)];
     userObject["objectWidth"] = getRandomInt(1,4);
     userObject["objectHeight"] = getRandomInt(1,4);
     userObject["objectX"] = getRandomInt(1,8);
     userObject["objectY"] = getRandomInt(1,8);
     userObject["objectColor"] = colors[getRandomInt(0,15)];
-    userObject["objectTexture"] = 0;
+    userObject["objectTexture"] = textures[getRandomInt(0,2)];
     userObject["objectZIndex"] = 0;
-
-
-
+    
 		JSON.stringify(userObject);
 		$.post("postObject.php", { data: userObject }, function(response) {
 		  if (response["complete"]) {

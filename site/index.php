@@ -68,7 +68,7 @@
         ,"objectX":1
         ,"objectY":1
         ,"objectColor":"#333"
-        ,"objectTexture":""
+        ,"objectTexture":"000"
         ,"objectZIndex":1
       };
     </script>
