@@ -140,9 +140,10 @@ if (queryString.location && queryString.country) {
 
 
 $(window).load(function() {
-  $("html, body").animate({ scrollTop: $(document).height() }, { duration: 1000, queue: false});
   $("html, body").animate({ scrollLeft: ((gridColumns*gridSize)-windowWidth)/2 }, { duration: 1000, queue: false});
+  $("html, body").animate({ scrollTop: $(document).height() }, { duration: 1000, queue: false});
 });
+
 
 
 
