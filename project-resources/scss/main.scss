@@ -9,13 +9,21 @@ $objectMaxSize:4;
 //        "item-3.1" "item-3.2" "item-3.3" "item-3.4",
 //        "item-4.1" "item-4.2" "item-4.3" "item-4.4";
 
-$TriangleRandL: 45deg 26.56deg 18.43deg 14.04deg, 
-								63.43deg 45deg 33.69deg 26.56deg,
-								71.56deg 56.30deg 45deg 36.87deg,
+$TriangleRandL: 45deg 26.57deg 18.43deg 14.04deg, 
+								63.43deg 45deg 33.69deg 26.57deg,
+								71.57deg 56.31deg 45deg 36.87deg,
 								75.96deg 63.43deg 53.13deg 45deg;
 
+// $TriangleE: 26.57deg 45deg 56.31deg 63.43deg,
+// 						14.04deg 26.57deg 36.87deg 45deg,
+// 						9.46deg 18.43deg 26.57deg 33.69deg,
+// 						7.13deg 14.04deg 20.56deg 26.57deg;
 
 
+$TriangleE: 26.57deg 14.04deg 9.46deg 7.13deg,
+						45deg 26.57deg 18.43deg 14.04deg,
+						56.31deg 36.87deg 26.57deg 20.56deg,
+						63.43deg 45deg 33.69deg 26.57deg;
 
 body {
   margin: 0;
@@ -88,59 +96,125 @@ body {
 				border-radius: $circleRadius;
 			}
 		  
-		  $triangleDeg : nth(nth($TriangleRandL, $width), $height);
+		  $triangleLRDeg : nth(nth($TriangleRandL, $width), $height);
 
 		  &.triangle-L-#{$width}x#{$height} {
 				overflow: hidden;
-				background-color: transparent !important;
+				// background-color: transparent !important;
 				width: $objectWidth;
 		    height: $objectHeight;
 				>div {
 					overflow: hidden;
 					width: 100%;
 					height: 200%;
-					-webkit-transform: skewX($triangleDeg);
-					-moz-transform: skewX($triangleDeg);
-					-o-transform: skewX($triangleDeg);
-					-ms-transform: skewX($triangleDeg);
-					transform: skewX($triangleDeg);
+					-webkit-transform: skewX($triangleLRDeg);
+					-moz-transform: skewX($triangleLRDeg);
+					-o-transform: skewX($triangleLRDeg);
+					-ms-transform: skewX($triangleLRDeg);
+					transform: skewX($triangleLRDeg);
 					>div {
-						width: 100%;
-						height: 100%;
-						-webkit-transform: skewX(-$triangleDeg);
-						-moz-transform: skewX(-$triangleDeg);
-						-o-transform: skewX(-$triangleDeg);
-						-ms-transform: skewX(-$triangleDeg);
-						transform: skewX(-$triangleDeg);
+						// width: 100%;
+						// height: 100%;
+						-webkit-transform: skewX(-$triangleLRDeg);
+						-moz-transform: skewX(-$triangleLRDeg);
+						-o-transform: skewX(-$triangleLRDeg);
+						-ms-transform: skewX(-$triangleLRDeg);
+						transform: skewX(-$triangleLRDeg);
 					}
 				}
 			}
 
 			&.triangle-R-#{$width}x#{$height} {
 				overflow: hidden;
-				background-color: transparent !important;
+				// background-color: transparent !important;
 				width: $objectWidth;
 		    height: $objectHeight;
 				>div {
 					overflow: hidden;
 					width: 100%;
 					height: 200%;
-					-webkit-transform: skewX(-$triangleDeg);
-					-moz-transform: skewX(-$triangleDeg);
-					-o-transform: skewX(-$triangleDeg);
-					-ms-transform: skewX(-$triangleDeg);
-					transform: skewX(-$triangleDeg);
+					-webkit-transform: skewX(-$triangleLRDeg);
+					-moz-transform: skewX(-$triangleLRDeg);
+					-o-transform: skewX(-$triangleLRDeg);
+					-ms-transform: skewX(-$triangleLRDeg);
+					transform: skewX(-$triangleLRDeg);
 					>div {
-						width: 100%;
-						height: 100%;
-						-webkit-transform: skewX($triangleDeg);
-						-moz-transform: skewX($triangleDeg);
-						-o-transform: skewX($triangleDeg);
-						-ms-transform: skewX($triangleDeg);
-						transform: skewX($triangleDeg);
+						// width: 100%;
+						// height: 100%;
+						-webkit-transform: skewX($triangleLRDeg);
+						-moz-transform: skewX($triangleLRDeg);
+						-o-transform: skewX($triangleLRDeg);
+						-ms-transform: skewX($triangleLRDeg);
+						transform: skewX($triangleLRDeg);
 					}
 				}
 			}
+
+			$triangleEDeg : nth(nth($TriangleE, $width), $height);
+
+			&.triangle-E-#{$width}x#{$height} {
+				overflow: hidden;
+				// background-color: transparent !important;
+				width: $objectWidth;
+		    height: $objectHeight;
+				>div {
+					overflow: hidden;
+					width: 100%;
+					height: 200%;
+					-webkit-transform: skewX(-$triangleEDeg);
+					-moz-transform: skewX(-$triangleEDeg);
+					-o-transform: skewX(-$triangleEDeg);
+					-ms-transform: skewX(-$triangleEDeg);
+					transform: skewX(-$triangleEDeg);
+					>div {
+						overflow: hidden;
+						width: 100%;
+						height: 100%;
+						-webkit-transform: skewX($triangleLRDeg);
+						-moz-transform: skewX($triangleLRDeg);
+						-o-transform: skewX($triangleLRDeg);
+						-ms-transform: skewX($triangleLRDeg);
+						transform: skewX($triangleLRDeg);
+						>div {
+							-webkit-transform: skewX(-$triangleEDeg);
+							-moz-transform: skewX(-$triangleEDeg);
+							-o-transform: skewX(-$triangleEDeg);
+							-ms-transform: skewX(-$triangleEDeg);
+							transform: skewX(-$triangleEDeg);
+						}
+					}
+				}
+			}
+
+
+
+	// 		.triangle3a {
+	// 	overflow: hidden;
+	// 	width: 40px;
+	// 	height:80px;
+	// 	-webkit-transform: skewX(-26.5deg);
+ //       -moz-transform: skewX(-26.5deg);
+ //         -o-transform: skewX(-26.5deg);
+ //        -ms-transform: skewX(-26.5deg);
+ //            transform: skewX(-26.5deg);
+	// }
+	// .triangle3b {
+	// 	overflow: hidden;
+	// 	width: 40px;
+	// 	height:80px;
+	// 	-webkit-transform: skewX(45deg);
+ //       -moz-transform: skewX(45deg);
+ //         -o-transform: skewX(45deg);
+ //        -ms-transform: skewX(45deg);
+ //            transform: skewX(45deg);
+	// }
+	// .triangle3b img{
+	// 	-webkit-transform: skewX(-18.5deg);
+ //       -moz-transform: skewX(-18.5deg);
+ //         -o-transform: skewX(-18.5deg);
+ //        -ms-transform: skewX(-18.5deg);
+ //            transform: skewX(-18.5deg);
+	// }
 
 
 
@@ -177,8 +251,8 @@ body {
 
 #dynamicAdd {
 	position: absolute;
-	left: 50%;
-	top: 50%;
+	left: 40px;
+	top: 40px;
 	width: 50px;
 	height:30px;
 	margin-left:-25px;
