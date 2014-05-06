@@ -33,7 +33,7 @@ var gridRows = Math.floor(screenHeight/gridSize)+3;
 function addObject(object) {
   var string = "";
 
-  var typeClass = object["objectType"]+"-"+object["objectWidth"]+"x"+object["objectHeight"];
+  var typeClass = object["objectType"]+"-"+object["objectWidth"]+"x"+object["objectHeight"]+"-"+object["objectRotation"];
   var styleLeft = object["objectX"]===0 ? 1 : (object["objectX"]*gridSize);
   var styleTop = object["objectY"]*gridSize;
   var styleTexture = "texture-"+(object["objectTexture"]==="000" ? "" : object["objectTexture"]);
@@ -140,8 +140,8 @@ if (queryString.location && queryString.country) {
 
 
 $(window).load(function() {
-  $("html, body").animate({ scrollLeft: ((gridColumns*gridSize)-windowWidth)/2 }, { duration: 1000, queue: false});
-  $("html, body").animate({ scrollTop: $(document).height() }, { duration: 1000, queue: false});
+  // $("html, body").animate({ scrollLeft: ((gridColumns*gridSize)-windowWidth)/2 }, { duration: 1000, queue: false});
+  // $("html, body").animate({ scrollTop: $(document).height() }, { duration: 1000, queue: false});
 });
 
 
@@ -155,18 +155,20 @@ $(document).ready(function() {
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-    var colors = ["aqua","black","blue","fuchsia","gray","green","lime","maroon","navy","olive","orange","purple","red","silver","teal","yellow"];
+    var colors = ["transparent","aqua","black","blue","fuchsia","gray","green","lime","maroon","navy","olive","orange","purple","red","silver","teal","yellow"];
     var shapes = ["square","circle","triangle-L","triangle-R","triangle-E"];
 		var textures = ["000","001","002"];
     userObject["userName"] = "A";
-    userObject["objectType"] = shapes[getRandomInt(0,4)];
+    userObject["objectType"] = shapes[getRandomInt(0,1)];
     userObject["objectWidth"] = getRandomInt(1,4);
     userObject["objectHeight"] = getRandomInt(1,4);
     userObject["objectX"] = getRandomInt(1,8);
     userObject["objectY"] = getRandomInt(1,8);
-    userObject["objectColor"] = colors[getRandomInt(0,15)];
+    userObject["objectColor"] = colors[getRandomInt(0,16)];
     userObject["objectTexture"] = textures[getRandomInt(0,2)];
     userObject["objectZIndex"] = 0;
+    userObject["objectRotation"] = getRandomInt(0,3);
+
     
 		JSON.stringify(userObject);
 		$.post("postObject.php", { data: userObject }, function(response) {

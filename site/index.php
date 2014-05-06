@@ -69,7 +69,8 @@
         ,"objectY":1
         ,"objectColor":"#333"
         ,"objectTexture":"000"
-        ,"objectZIndex":1
+        ,"objectZIndex":0
+        ,"objectRotation":0
       };
     </script>
     <script type="text/javascript" src="resources/main.min.js"></script>

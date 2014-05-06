@@ -8,11 +8,15 @@
 		overflow: hidden;
 		width: 40px;
 		height:40px;
+		position: relative;
 	}
 	.triangle1 {
 		overflow: hidden;
 		width: 40px;
-		height:80px;
+		height:40px;
+		position: absolute;
+		top:0;
+		left: -20px;
 		-webkit-transform: skewX(45deg);
        -moz-transform: skewX(45deg);
          -o-transform: skewX(45deg);
@@ -20,6 +24,9 @@
             transform: skewX(45deg);
 	}
 	.triangle1 div{
+		position: absolute;
+		top:0;
+		left: 20px;
 		-webkit-transform: skewX(-45deg);
        -moz-transform: skewX(-45deg);
          -o-transform: skewX(-45deg);
@@ -108,7 +115,14 @@
 	</div>
 	
 	<br><br>
+	
+	<div class="triangleWrap1">
+		<div class="triangleb">
+			<img src="http://placekitten.com/80/80">
+		</div>
+	</div>
 
+	<br><br>
 	<div class="triangleWrap1">
 		<div class="triangle2">
 			<img src="http://placekitten.com/80/80">
